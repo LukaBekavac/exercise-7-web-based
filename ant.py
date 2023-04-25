@@ -34,8 +34,6 @@ class Ant():
             assert len(self.visited_locations) == self.environment.get_locations_count()
             assert len(self.travelled_distance) == self.environment.get_locations_count()
 
-            print("=> finished iteration")
-
     # Select the next path based on the random proportional rule of the ACO algorithm
     def select_path(self):
         self.pheromone_map = self.environment.get_pheromone_map()

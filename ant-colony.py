@@ -1,6 +1,7 @@
 import random
 
 import numpy as np
+from matplotlib import pyplot as plt
 
 from environment import Environment
 from ant import Ant
@@ -37,17 +38,17 @@ class AntColony:
 
     # Solve the ant colony optimization problem
     def solve(self):
-        iter = 0
+        iteration = 0
         shortest_distance = np.inf
         assigned_locations = set()
 
-        while iter < self.iterations:
+        while iteration < self.iterations:
 
-            print("=> iteration: ", iter + 1)
+            print("iteration number: ", iteration + 1)
 
             for ant_number in range(self.ant_population):
 
-                print("=> ant: ", ant_number + 1)
+                print("ant: ", ant_number + 1)
 
                 # Randomly select an initial location for the ant that has not already been assigned to another ant
                 unassigned_locations = set(range(self.environment.get_locations_count())) - assigned_locations
@@ -57,7 +58,7 @@ class AntColony:
                 else:
                     initial_location = random.randint(0, self.environment.get_locations_count() - 1)
 
-                print("=> initial_location: ", initial_location)
+                print("initial_location: ", initial_location)
 
                 # Initialize an ant
                 ant = Ant(self.alpha, self.beta, initial_location)
@@ -92,13 +93,13 @@ class AntColony:
 
             self.environment.update_pheromone_map(self.better_solution)
 
-            iter += 1
+            iteration += 1
 
         return solution, shortest_distance
 
 def main():
     # Intialize the ant colony
-    ant_colony = AntColony(ant_population=48, iterations=100, alpha=0, beta=0, rho=0.5)
+    ant_colony = AntColony(ant_population=48, iterations=10, alpha=3, beta=2, rho=0.5)
 
     # Solve the ant colony optimization problem
     solution, distance = ant_colony.solve()
